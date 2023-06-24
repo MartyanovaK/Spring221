@@ -18,6 +18,10 @@ public class User {
 
    @Column(name = "email")
    private String email;
+   @OneToOne
+   @JoinColumn(name = "car")
+   @MapsId
+   private Car car;
 
    public User() {}
    
@@ -57,5 +61,18 @@ public class User {
 
    public void setEmail(String email) {
       this.email = email;
+   }
+
+   public void setCar(Car car) {
+      this.car = car;
+   }
+
+   public Car getCar() {
+      return car;
+   }
+
+   @Override
+   public String toString() {
+      return getClass().getName() + "@" + Integer.toHexString(hashCode());
    }
 }
