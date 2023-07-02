@@ -8,8 +8,6 @@ import java.util.List;
 public interface UserService {
     void add(User user);
     List<User> listUsers();
-    User getUserByModel(String model);
-
-    List<User> getUserBySeries(int series);
+    User getUserByModelAndSeries(String model, int series);
 
 }

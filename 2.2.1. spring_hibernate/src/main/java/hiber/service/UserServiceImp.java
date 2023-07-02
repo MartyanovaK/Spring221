@@ -3,13 +3,14 @@ package hiber.service;
 import hiber.dao.UserDao;
 import hiber.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
 public class UserServiceImp implements UserService {
-
+   @Lazy
    @Autowired
    private UserDao userDao;
 
@@ -26,14 +27,8 @@ public class UserServiceImp implements UserService {
    }
    @Transactional
    @Override
-   public User getUserByModel(String model) {
-      return userDao.getUserByModel(model);
-   }
-
-   @Transactional
-   @Override
-   public List<User> getUserBySeries(int series) {
-      return userDao.getUserBySeries(series);
+   public User getUserByModelAndSeries(String model, int series) {
+      return userDao.getUserByModelAndSeries(model, series);
    }
 
 
