@@ -2,8 +2,6 @@ package hiber.dao;
 
 import hiber.model.User;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,9 +11,11 @@ import java.util.List;
 @Repository
 public class UserDaoImp implements UserDao {
 
-   @Autowired
-   @Lazy
-   private SessionFactory sessionFactory;
+   private final SessionFactory sessionFactory;
+
+   public UserDaoImp(SessionFactory sessionFactory) {
+      this.sessionFactory = sessionFactory;
+   }
 
    @Transactional
    @Override
@@ -34,12 +34,11 @@ public class UserDaoImp implements UserDao {
 
    public User getUserByModelAndSeries(String model, int series) {
 
-      User user = sessionFactory.getCurrentSession()
+      return sessionFactory.getCurrentSession()
               .createQuery("select u from User u where " +
                       "u.car.model = :model and u.car.series = :series", User.class)
               .setParameter("model", model).setParameter("series", series)
               .getSingleResult();
-      return user;
    }
 
 }

@@ -2,17 +2,18 @@ package hiber.service;
 
 import hiber.dao.UserDao;
 import hiber.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
 public class UserServiceImp implements UserService {
-   @Lazy
-   @Autowired
-   private UserDao userDao;
+
+   private final UserDao userDao;
+
+   public UserServiceImp(UserDao userDao) {
+      this.userDao = userDao;
+   }
 
    @Transactional
    @Override
